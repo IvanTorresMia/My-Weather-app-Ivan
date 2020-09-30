@@ -1,7 +1,10 @@
+// Getting Local storage and avoiding fetting null the first time around. 
 var btnArr = JSON.parse(localStorage.getItem("history")) || [];
 var apiKey = "58d666652ff1413e43798800e2896f32";
 renderBtn();
 
+
+// This is an event listener for the search button.
 $(".searchBtn").on("click", function () {
   var cityName = $("#input").val();
   btnArr.push(cityName);
@@ -12,7 +15,7 @@ $(".searchBtn").on("click", function () {
  
 });
 
-// This inputs to the Current on the Click of a history button.
+// This is an event listener for the buttons in the search history. 
 $(document).on("click", ".cityWeather", function () {
   var cityName = $(this).text();
   console.log(cityName);
@@ -20,6 +23,7 @@ $(document).on("click", ".cityWeather", function () {
   get5Day(cityName); 
 });
 
+// This Function renders Buttons and it called both for local storage and for the search button. 
 function renderBtn() {
   // make this render from your btnArr instead
   var searchHistory = $(".searchHistory");
@@ -33,6 +37,8 @@ function renderBtn() {
   }
 }
 
+// This function does an api call for both the current weather and the UV index. 
+// Then it appends the information to each button that is clciked. 
 function currentWeather(cityName){
 
 var currentDate = moment().format(" (dddd, MMMM Do YYYY)");  
@@ -70,6 +76,7 @@ $.ajax({
   method: "GET",
 }).then(function (UVresponse) {
 
+  // This Section gives new colors depending on the UV index. 
   var UVindexVal = UVresponse.value;
   var UvSpan = $(".uvIndex")
   UvSpan.text(UVindexVal);
@@ -88,7 +95,8 @@ $.ajax({
 })
 }
 
-// function to get 5day forecast
+// function to get the five day forcast using the 5 day forcast API 
+// Then it appends all the information in the call to cards styled mainly by bootstrap.
 function get5Day(cityName) {
   // Five Day forcast function
   $.ajax({
@@ -124,6 +132,7 @@ function get5Day(cityName) {
   });
 }
 
+// This button clears the history section of the page by clearing the local storage and the history section. 
 $(".clearBtn").on("click", function(){
     localStorage.removeItem("history");
     $(".searchHistory").empty();
