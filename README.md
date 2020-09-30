@@ -2,7 +2,7 @@
 
 
 ## Description 
-Welcome to your own personal Day Work Shedule. That's right, now you can be orginized and know exactly what you are going to do two hours from now. As long as you stay between the hours of 9 and ten. He you will be presented with page, the current day and text areas where you can write out your day and save your plans for work. You start by writing out your plans and everytime you want to save that specific plan then you press the blue button to the right with the cool icon. wallah, you have saved your plans permenantly until you decide to change them. 
+Welcome to your own personal Weather app! Weather you are an athlete trying wanting to know when you can and cannot not go out for a run, or you're a traveler wanting to see the weather of the next location you are going to. This app is for you! He you will be presented with a serch bar, there you will type the name of the city or location that you are visting or are currently in. You will then be presented with a container displaying the current weather forcast and as well as the five day forcast. Under your search bar you will have a history of the cities you have searched for. You will then have the option to clear all of your history through a button. with the text of "Clear History." 
 
 ## Technologies
 * [JavaScript](https://www.w3schools.com/js/)
