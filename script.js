@@ -1,86 +1,64 @@
-// Getting Local Storage and avoiding a "null" the first time around
-var btnArr = JSON.parse(localStorage.getItem("history")) || [];
-// API key for the 3rd party API
-var apiKey = "58d666652ff1413e43798800e2896f32";
+let btnArr = JSON.parse(localStorage.getItem("history")) || []; // Getting Local storage
+let apiKey = "9ddc8097fb5593b533f4685eec567503";
 
+// Fire the render buttons as soon as the page loads. 
 renderBtn();
 
-// This is an event listener for the search button.
-$(".searchBtn").on("click", function () {
-  // grabbing the value for the input inside the city name
-  var cityName = $("#input").val();
-  // Pushing into local storage, im ussiming it acts as an array.
+
+$(".searchBtn").on("click", search);
+
+function search() {
+  let cityName = $("#input").val();
   btnArr.push(cityName);
-  // Setting local storage, using the array btnArr
   localStorage.setItem("history", JSON.stringify(btnArr));
-  // passing the value of the city name to the renderBtn function.
   renderBtn(cityName);
-  // Passing that same value to the function currentWeather
   currentWeather(cityName);
-  // passing that same value to the function get5Dat()
   get5Day(cityName);
-});
 
-// This function will render the weather depending on which button you click 
-// from search history. 
+}
+
+
 $(document).on("click", ".cityWeather", function () {
-  // This stores the current button being clicked with the same class. 
-  var cityName = $(this).text();
-  // this is to test which button I am clicking at the bmoment. 
+  let cityName = $(this).text();
   console.log(cityName);
-  // This passes the valuye of the current button that is being pressed
   currentWeather(cityName);
-  // passing the text of the current button being pressed to this function.
   get5Day(cityName);
 });
-// This Function renders Buttons and it called both for local storage and for the search button.
-function renderBtn() {
-  // make this render from your btnArr instead
 
-  // This is a hook to the search history div
-  var searchHistory = $(".searchHistory");
-// we have to empty the search container each time that we render the buttons
-// if we don't do this then we will have doubles.
+function renderBtn() {
+  let searchHistory = $(".searchHistory");
   searchHistory.empty();
-  // redering buttons for every item in the local storage.
-  for (var i = 0; i < btnArr.length; i++) {
-    // Button inside the history 
-    var historyBtn = $("<button>").addClass("mt-2 cityWeather");
-    // storing the name of the city in this variable. 
-    var cityName = btnArr[i];
-    // appending the text of the button with the city name. 
+  for (let i = 0; i < btnArr.length; i++) {
+    let historyBtn = $("<button>").addClass("mt-2 cityWeather");
+    let cityName = btnArr[i];
     historyBtn.text(cityName);
-    // appending the 
     searchHistory.append(historyBtn);
   }
 }
 
-// This function does an api call for both the current weather and the UV index.
-// Then it appends the information to each button that is clciked.
 function currentWeather(cityName) {
-  var currentDate = moment().format(" (dddd, MMMM Do YYYY)");
-  var queryURL =
+  let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
+  let queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     cityName +
     "&appid=" +
     apiKey +
     "&units=imperial";
-
   $.ajax({
     url: queryURL,
     method: "GET",
   }).then(function (response) {
-    var tempEquation = response.main.temp;
+    let tempEquation = response.main.temp;
 
+   
     $(".cityName").text(response.name + currentDate);
     $(".temp").text("temperature: " + tempEquation + "°");
     $(".humidity").text("Humidity: " + response.main.humidity + "%");
     $(".windSpeed").text("Wind Speed: " + response.wind.speed + "MPH");
-
-    // This Section sets the UV index
-    var long = response.coord.lon;
-    var latt = response.coord.lat;
-    var UVurl =
+    console.log(response)
+    let long = response.coord.lon;
+    let latt = response.coord.lat;
+    let UVurl =
       "https://api.openweathermap.org/data/2.5/uvi?lat=" +
       latt +
       "&lon=" +
@@ -91,9 +69,8 @@ function currentWeather(cityName) {
       url: UVurl,
       method: "GET",
     }).then(function (UVresponse) {
-      // This Section gives new colors depending on the UV index.
-      var UVindexVal = UVresponse.value;
-      var UvSpan = $(".uvIndex");
+      let UVindexVal = UVresponse.value;
+      let UvSpan = $(".uvIndex");
       UvSpan.text(UVindexVal);
       if (UVindexVal > 10) {
         UvSpan.attr(
@@ -125,10 +102,7 @@ function currentWeather(cityName) {
   });
 }
 
-// function to get the five day forcast using the 5 day forcast API
-// Then it appends all the information in the call to cards styled mainly by bootstrap.
 function get5Day(cityName) {
-  // Five Day forcast function
   $.ajax({
     url:
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -140,13 +114,13 @@ function get5Day(cityName) {
   }).then(function (fiveResponse) {
     $(".fiveDayCon").empty();
     for (i = 0; i < 40; i = i + 8) {
-      var cardDiv = $("<div>");
-      var currentDay = fiveResponse.list[i];
-      var temp = $("<p>").text("Temperature: " + currentDay.main.temp + "°");
-      var currenTime = $("<p>").text(currentDay.dt_txt.substring(0, 10));
+      let cardDiv = $("<div>");
+      let currentDay = fiveResponse.list[i];
+      let temp = $("<p>").text("Temperature: " + currentDay.main.temp + "°");
+      let currenTime = $("<p>").text(currentDay.dt_txt.substring(0, 10));
       currenTime.attr("style", "font-weight: bold;");
-      var humidity = $("<p>").text("Humidity: " + currentDay.main.humidity);
-      var iconImg = $("<img>");
+      let humidity = $("<p>").text("Humidity: " + currentDay.main.humidity);
+      let iconImg = $("<img>");
       iconImg.attr(
         "src",
         "https://openweathermap.org/img/wn/" +
@@ -163,7 +137,6 @@ function get5Day(cityName) {
   });
 }
 
-// This button clears the history section of the page by clearing the local storage and the history section.
 $(".clearBtn").on("click", function () {
   localStorage.removeItem("history");
   $(".searchHistory").empty();
