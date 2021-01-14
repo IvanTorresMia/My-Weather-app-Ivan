@@ -1,12 +1,25 @@
 let btnArr = JSON.parse(localStorage.getItem("history")) || []; // Getting Local storage
 let apiKey = "9ddc8097fb5593b533f4685eec567503";
+renderBtn(); //Render the history buttons as soon as the page loads
 
-// Fire the render buttons as soon as the page loads. 
-renderBtn();
+// Global Varaibles
+let currentCity = $(".cityName");
+let temp = $(".temp");
+let humidity = $(".humidity");
+let windSpeed = $(".windSpeed");
+let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
 
-
+// Event handlers
 $(".searchBtn").on("click", search);
+$(document).on("click", ".cityWeather", city);
+$(".clearBtn").on("click", clearHistory);
 
+// Functions start here.
+// =======================
+//
+// =======================
+
+// Function to handle search.
 function search() {
   let cityName = $("#input").val();
   btnArr.push(cityName);
@@ -14,17 +27,16 @@ function search() {
   renderBtn(cityName);
   currentWeather(cityName);
   get5Day(cityName);
-
 }
 
-
-$(document).on("click", ".cityWeather", function () {
+// Function to pass the city value to fucntions making API calls.
+function city() {
   let cityName = $(this).text();
-  console.log(cityName);
   currentWeather(cityName);
   get5Day(cityName);
-});
+}
 
+// Function to render the Buttons once City is searched.
 function renderBtn() {
   let searchHistory = $(".searchHistory");
   searchHistory.empty();
@@ -37,7 +49,7 @@ function renderBtn() {
 }
 
 function currentWeather(cityName) {
-  let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
+  // let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
   let queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     cityName +
@@ -50,12 +62,11 @@ function currentWeather(cityName) {
   }).then(function (response) {
     let tempEquation = response.main.temp;
 
-   
-    $(".cityName").text(response.name + currentDate);
-    $(".temp").text("temperature: " + tempEquation + "°");
-    $(".humidity").text("Humidity: " + response.main.humidity + "%");
-    $(".windSpeed").text("Wind Speed: " + response.wind.speed + "MPH");
-    console.log(response)
+    currentCity.text(response.name + currentDate);
+    temp.text("temperature: " + tempEquation + "°");
+    humidity.text("Humidity: " + response.main.humidity + "%");
+    windSpeed.text("Wind Speed: " + response.wind.speed + "MPH");
+
     let long = response.coord.lon;
     let latt = response.coord.lat;
     let UVurl =
@@ -137,8 +148,8 @@ function get5Day(cityName) {
   });
 }
 
-$(".clearBtn").on("click", function () {
+function clearHistory() {
   localStorage.removeItem("history");
   $(".searchHistory").empty();
   btnArr = [];
-});
+}
