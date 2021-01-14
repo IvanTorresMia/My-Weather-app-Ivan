@@ -13,6 +13,7 @@ let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
 $(".searchBtn").on("click", search);
 $(document).on("click", ".cityWeather", city);
 $(".clearBtn").on("click", clearHistory);
+$(".removeBtn").on("click", removeCity);
 
 // Functions start here.
 // =======================
@@ -37,15 +38,26 @@ function city() {
 }
 
 // Function to render the Buttons once City is searched.
+// Add a delete button for each button. 
 function renderBtn() {
   let searchHistory = $(".searchHistory");
   searchHistory.empty();
   for (let i = 0; i < btnArr.length; i++) {
     let historyBtn = $("<button>").addClass("mt-2 cityWeather");
+    let removeBtn = $("<button>").addClass("mt-2 removeBtn")
     let cityName = btnArr[i];
     historyBtn.text(cityName);
+    removeBtn.text("Delete")
     searchHistory.append(historyBtn);
+    searchHistory.append(removeBtn)
   }
+}
+
+function removeCity(event) {
+event.preventDefault()
+
+  console.log(this.prev(".removeBtn"))
+
 }
 
 function currentWeather(cityName) {
