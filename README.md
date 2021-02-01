@@ -88,11 +88,12 @@ Ivan Torres
 * [linkedIn](www.linkedin.com/in/ivan-torres-0828931b2)
 
 ## Credits
-* Credits for this homework assignment go out to Jerome, Manuel, Kerwin, Roger, and all of my classmates who helped me in study sessions. As well as my tutor who helped me a ton with understanding this homework assignment. As well as BC assistants who helped tons!
+* Always Giving Credit to past tutors and instructors that tought to code as well as friends who give me feed back on how to make my projets better.
+
 * [StackOverFlow](https://stackoverflow.com/)
 
 
 
 
-## License]
-[MIT](https://choosealicense.com/licenses/mit/#) license 
+## License
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://www.mit.edu/~amini/LICENSE.md)
