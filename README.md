@@ -10,6 +10,7 @@ Welcome to your own personal Weather app! Weather you are an athlete trying want
 * [jQuery](https://jquery.com/)
 * [momentsjs](https://momentjs.com/)
 * [openweathermap](https://openweathermap.org/)
+* [Ajax](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX)
 
 
 ## Features
