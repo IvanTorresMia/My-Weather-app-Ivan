@@ -1,0 +1,15 @@
+/* History Container */
+/* #searchHistory {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+} */
+
+.cityWeather {
+    width: 100px;
+}
+
+.removeBtn {
+    width: 75px;
+   margin-left: 10px;
+}

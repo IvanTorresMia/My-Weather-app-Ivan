@@ -28,6 +28,7 @@ function search() {
   renderBtn(cityName);
   currentWeather(cityName);
   get5Day(cityName);
+  $("#input").val("");
 }
 
 // Function to pass the city value to fucntions making API calls.
@@ -38,26 +39,35 @@ function city() {
 }
 
 // Function to render the Buttons once City is searched.
-// Add a delete button for each button. 
+// Add a delete button for each button.
 function renderBtn() {
   let searchHistory = $(".searchHistory");
   searchHistory.empty();
   for (let i = 0; i < btnArr.length; i++) {
-    let historyBtn = $("<button>").addClass("mt-2 cityWeather");
-    let removeBtn = $("<button>").addClass("mt-2 removeBtn")
+    let historyBtn = $("<button>").addClass("btn btn-secondary mt-2 cityWeather");
+    let removeBtn = $("<button>").addClass("btn btn-danger mt-2 removeBtn");
     let cityName = btnArr[i];
     historyBtn.text(cityName);
-    removeBtn.text("Delete")
+    removeBtn.text("Delete");
     searchHistory.append(historyBtn);
-    searchHistory.append(removeBtn)
+    searchHistory.append(removeBtn);
   }
 }
 
 function removeCity(event) {
-event.preventDefault()
+  // event.preventDefault();
 
-  console.log(this.prev(".removeBtn"))
+  console.log(this.previousElementSibling);
 
+  for (i = 0; i < btnArr.length; i++) {
+    if (this.previousElementSibling.innerHTML == btnArr[i]) {
+      btnArr.splice(btnArr[i], 1);
+    }
+  }
+  let searchHistory = $(".searchHistory");
+  searchHistory.innerHTML = "";
+  localStorage.setItem("history", JSON.stringify(btnArr));
+  renderBtn(btnArr);
 }
 
 function currentWeather(cityName) {

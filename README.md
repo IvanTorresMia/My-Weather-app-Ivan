@@ -15,7 +15,7 @@ Welcome to your own personal Weather app! Weather you are an athlete trying want
 ## Features
 * Gif of my Website. 
 
-![Quiz-Gif](Work-Gif-HW.gif)
+![Quiz-Gif](./assets/newWeather.gif)
 
 * There are two parts to this first function. The first is this. Getting the current weather with the exception of the Uv Index. I had to call to another ap url for that. 
 ```
