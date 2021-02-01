@@ -17,77 +17,68 @@ Welcome to your own personal Weather app! Weather you are an athlete trying want
 
 ![Quiz-Gif](./assets/newWeather.gif)
 
-* There are two parts to this first function. The first is this. Getting the current weather with the exception of the Uv Index. I had to call to another ap url for that. 
-```
-  function currentWeather(cityName){
-
-var currentDate = moment().format(" (dddd, MMMM Do YYYY)");  
-var queryURL =
-"https://api.openweathermap.org/data/2.5/weather?q=" +
-cityName +
-"&appid=" +
-apiKey +
-"&units=imperial";
-
-$.ajax({
-url: queryURL,
-method: "GET",
-}).then(function (response) {
-
-var tempEquation = response.main.temp;
-
-$(".cityName").text(response.name + currentDate);
-$(".temp").text("temperature: " + tempEquation + "°");
-$(".humidity").text("Humidity: " + response.main.humidity + "%");
-$(".windSpeed").text("Wind Speed: " + response.wind.speed + "MPH");
-
-  ```
-
-
-* This is the call to the UV Index API, I also have to take it and make if and else statements soo that it would change colors depending on the index. 
+### Making Ajax Calls to API
+- This is part of the function that makes an Ajax call to the open weather API. 
 
 ```
- var long = response.coord.lon;
-var latt = response.coord.lat;
-var UVurl =
-  "https://api.openweathermap.org/data/2.5/uvi?lat=" +
-  latt +
-  "&lon=" +
-  long +
-  "&appid=" +
-  apiKey;
-$.ajax({
-  url: UVurl,
-  method: "GET",
-}).then(function (UVresponse) {
+function currentWeather(cityName) {
+  let queryURL =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    cityName +
+    "&appid=" +
+    apiKey +
+    "&units=imperial";
+  $.ajax({
+    url: queryURL,
+    method: "GET",
+  }).then(function (response) {
+    let tempEquation = response.main.temp;
 
-  // This Section gives new colors depending on the UV index. 
-  var UVindexVal = UVresponse.value;
-  var UvSpan = $(".uvIndex")
-  UvSpan.text(UVindexVal);
-  if (UVindexVal > 10) {
-  UvSpan.attr("style", "background-color: purple; padding: 5px; border: 1px solid black");
-  } else if (UVindexVal < 10 && UVindexVal > 7) {
-    UvSpan.attr("style", "background-color: red; padding: 5px; border: 1px solid black");
-  } else if (UVindexVal < 8 && UVindexVal > 5) {
-    UvSpan.attr("style", "background-color: orange; padding: 5px; border: 1px solid black");
-  } else if (UVindexVal < 6 && UVindexVal > 2) {
-    UvSpan.attr("style", "background-color: yellow; padding: 5px; border: 1px solid black");
-  } else {
-    UvSpan.attr("style", "background-color: green; padding: 5px; border: 1px solid black");
-  }
-});
-})
+    currentCity.text(response.name + currentDate);
+    temp.text("temperature: " + tempEquation + "°");
+    humidity.text("Humidity: " + response.main.humidity + "%");
+    windSpeed.text("Wind Speed: " + response.wind.speed + "MPH");
+```
+
+
+### Making seperate Ajax Call for 5 day Forcast
+- Here we are using Ajax to interact with the 5 day forcast. Then we loop through the response to only get the data that we need.
+
+```
+function get5Day(cityName) {
+  $.ajax({
+    url:
+      "https://api.openweathermap.org/data/2.5/forecast?q=" +
+      cityName +
+      "&appid=" +
+      apiKey +
+      "&units=imperial",
+    method: "GET",
+  }).then(function (fiveResponse) {
+    $(".fiveDayCon").empty();
+    for (i = 0; i < 40; i = i + 8) {
+      let cardDiv = $("<div>");
+      let currentDay = fiveResponse.list[i];
+      let temp = $("<p>").text("Temperature: " + currentDay.main.temp + "°");
+      let currenTime = $("<p>").text(currentDay.dt_txt.substring(0, 10));
+      currenTime.attr("style", "font-weight: bold;");
+      let humidity = $("<p>").text("Humidity: " + currentDay.main.humidity);
+      let iconImg = $("<img>");
+      iconImg.attr(
+        "src",
+        "https://openweathermap.org/img/wn/" +
+          currentDay.weather[0].icon +
+          "@2x.png"
+      );
+      cardDiv.attr(
+        "class",
+        "card card-body border border-secondary bg-primary"
+      );
+      cardDiv.append(iconImg, currenTime, temp, humidity);
+      $(".fiveDayCon").append(cardDiv);
+    }
+  });
 }
-```
-* This Code gets the history section and clears the local storage. 
-```
-  $(".clearBtn").on("click", function(){
-    localStorage.removeItem("history");
-    $(".searchHistory").empty();
-    btnArr = [];
-
-})
 ```
 
 ## Author

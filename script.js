@@ -44,7 +44,9 @@ function renderBtn() {
   let searchHistory = $(".searchHistory");
   searchHistory.empty();
   for (let i = 0; i < btnArr.length; i++) {
-    let historyBtn = $("<button>").addClass("btn btn-secondary mt-2 cityWeather");
+    let historyBtn = $("<button>").addClass(
+      "btn btn-secondary mt-2 cityWeather"
+    );
     let removeBtn = $("<button>").addClass("btn btn-danger mt-2 removeBtn");
     let cityName = btnArr[i];
     historyBtn.text(cityName);
@@ -71,7 +73,6 @@ function removeCity(event) {
 }
 
 function currentWeather(cityName) {
-  // let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
   let queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     cityName +
