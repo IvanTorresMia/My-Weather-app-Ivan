@@ -23,10 +23,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    
     <!-- Header -->
-    <header class="bg-dark p-2 container-fluid">
+    <header class="container-fluid">
       <div class="row">
         <div class="col-lg text-center">
-          <h1 class="text-white">My Weather App</h1>
+          <h1 class="">My Weather App</h1>
         </div>
       </div>
     </header>
@@ -35,43 +35,45 @@
       <div class="row">
 
         <!-- This is the Search section -->
-        <div class="col-3 searchBar bg-light mt-4">
+        <div class="col-3 search-container bg-light">
             <h3 class="row card-title card-body">
            <label for="Search Bar" class="display-4">Search</label>
             </h3>
-           <div class="row ml-2">
+           <div class="search row ml-2">
             <input type="text" placeholder="City" id="input">
-            <button class="bg-secondary searchBtn" id="searchBtn">
+            <button class="btn searchBtn" id="searchBtn">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                     <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                   </svg>
             </button>
         </div>
-        <div class="card mx-auto ml-2 searchHistory" id="searchHistory">
+        <div class="card search-history" id="searchHistory">
             <!-- search history here -->
         </div>
-        <button class="btn btn-secondary mx-auto mt-2 clearBtn">
+        <button class="btn btn-secondary clearBtn">
           <!-- Clear Button Here -->
           Clear History
         </button>
         </div>
 
-        <!--  -->
-        <div class="col-9 mt-4">
-            <div class="row card p-2 mx-auto">
+        <!--  weather section  -->
+        <div class="col-8 weather-container">
+            <div class="row current-weather card mx-auto">
                 <h2 class="cityName">City</h2>
                 <div class="temp">Temperature</div>
                 <div class="humidity">humidity</div>
                 <div class="windSpeed">Windspeed</div>
                 <div>UV index:<span class="uvIndex"></span></div>
             </div>
+            <div class="fiveday-wrapper">
             <div class="row mx-auto">
                 <h2>5 Day Forecast</h2>
             </div>
             <div class="row card-deck img-fluid mx-auto fiveDayCon">
                
             </div>
+          </div>
         </div>
 
       </div>

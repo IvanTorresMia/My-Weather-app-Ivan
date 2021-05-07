@@ -11,9 +11,9 @@ let currentDate = moment().format(" (dddd, MMMM Do YYYY)");
 
 // Event handlers
 $(".searchBtn").on("click", search);
-$(document).on("click", ".cityWeather", city);
+$(document).on("click", ".city-button", city);
 $(".clearBtn").on("click", clearHistory);
-$(".removeBtn").on("click", removeCity);
+// $(".removeBtn").on("click", removeCity);
 
 // Functions start here.
 // =======================
@@ -41,36 +41,36 @@ function city() {
 // Function to render the Buttons once City is searched.
 // Add a delete button for each button.
 function renderBtn() {
-  let searchHistory = $(".searchHistory");
+  let searchHistory = $(".search-history");
   searchHistory.empty();
   for (let i = 0; i < btnArr.length; i++) {
     let historyBtn = $("<button>").addClass(
-      "btn btn-secondary mt-2 cityWeather"
+      "btn city-button"
     );
-    let removeBtn = $("<button>").addClass("btn btn-danger mt-2 removeBtn");
+    // let removeBtn = $("<button>").addClass("btn btn-danger mt-2 removeBtn");
     let cityName = btnArr[i];
     historyBtn.text(cityName);
-    removeBtn.text("Delete");
+    // removeBtn.text("Delete");
     searchHistory.append(historyBtn);
-    searchHistory.append(removeBtn);
+    // searchHistory.append(removeBtn);
   }
 }
 
-function removeCity(event) {
-  // event.preventDefault();
+// function removeCity(event) {
+//   event.preventDefault();
 
-  console.log(this.previousElementSibling);
+//   console.log(this.previousElementSibling);
 
-  for (i = 0; i < btnArr.length; i++) {
-    if (this.previousElementSibling.innerHTML == btnArr[i]) {
-      btnArr.splice(btnArr[i], 1);
-    }
-  }
-  let searchHistory = $(".searchHistory");
-  searchHistory.innerHTML = "";
-  localStorage.setItem("history", JSON.stringify(btnArr));
-  renderBtn(btnArr);
-}
+//   for (i = 0; i < btnArr.length; i++) {
+//     if (this.previousElementSibling.innerHTML == btnArr[i]) {
+//       btnArr.splice(btnArr[i], 1);
+//     }
+//   }
+//   let searchHistory = $(".searchHistory");
+//   searchHistory.innerHTML = "";
+//   localStorage.setItem("history", JSON.stringify(btnArr));
+//   renderBtn(btnArr);
+// }
 
 function currentWeather(cityName) {
   let queryURL =
