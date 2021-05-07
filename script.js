@@ -109,27 +109,27 @@ function currentWeather(cityName) {
       if (UVindexVal > 10) {
         UvSpan.attr(
           "style",
-          "background-color: purple; padding: 5px; border: 1px solid black"
+          "background-color: #5E11BD;"
         );
       } else if (UVindexVal < 10 && UVindexVal > 7) {
         UvSpan.attr(
           "style",
-          "background-color: red; padding: 5px; border: 1px solid black"
+          "color: #7C0802;"
         );
       } else if (UVindexVal < 8 && UVindexVal > 5) {
         UvSpan.attr(
           "style",
-          "background-color: orange; padding: 5px; border: 1px solid black"
+          "color: #FD490F;"
         );
       } else if (UVindexVal < 6 && UVindexVal > 2) {
         UvSpan.attr(
           "style",
-          "background-color: yellow; padding: 5px; border: 1px solid black"
+          "color: #F2D031;"
         );
       } else {
         UvSpan.attr(
           "style",
-          "background-color: green; padding: 5px; border: 1px solid black"
+          "color: #435A39;"
         );
       }
     });
@@ -163,7 +163,7 @@ function get5Day(cityName) {
       );
       cardDiv.attr(
         "class",
-        "card card-body border border-secondary bg-primary"
+        "col weather-cards"
       );
       cardDiv.append(iconImg, currenTime, temp, humidity);
       $(".fiveDayCon").append(cardDiv);
@@ -173,6 +173,6 @@ function get5Day(cityName) {
 
 function clearHistory() {
   localStorage.removeItem("history");
-  $(".searchHistory").empty();
+  $(".search-history").empty();
   btnArr = [];
 }
