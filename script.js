@@ -44,12 +44,11 @@ function renderBtn() {
   let searchHistory = $(".search-history");
   searchHistory.empty();
   for (let i = 0; i < btnArr.length; i++) {
-    let historyBtn = $("<button>").addClass(
-      "btn city-button"
-    );
+    let historyBtn = $("<button>").addClass("city-button");
     // let removeBtn = $("<button>").addClass("btn btn-danger mt-2 removeBtn");
     let cityName = btnArr[i];
     historyBtn.text(cityName);
+    historyBtn.attr("data-aos", "fade-down");
     // removeBtn.text("Delete");
     searchHistory.append(historyBtn);
     // searchHistory.append(removeBtn);
@@ -107,30 +106,15 @@ function currentWeather(cityName) {
       let UvSpan = $(".uvIndex");
       UvSpan.text(UVindexVal);
       if (UVindexVal > 10) {
-        UvSpan.attr(
-          "style",
-          "background-color: #5E11BD;"
-        );
+        UvSpan.attr("style", "background-color: #5E11BD;");
       } else if (UVindexVal < 10 && UVindexVal > 7) {
-        UvSpan.attr(
-          "style",
-          "color: #7C0802;"
-        );
+        UvSpan.attr("style", "color: #7C0802;");
       } else if (UVindexVal < 8 && UVindexVal > 5) {
-        UvSpan.attr(
-          "style",
-          "color: #FD490F;"
-        );
+        UvSpan.attr("style", "color: #FD490F;");
       } else if (UVindexVal < 6 && UVindexVal > 2) {
-        UvSpan.attr(
-          "style",
-          "color: #F2D031;"
-        );
+        UvSpan.attr("style", "color: #F2D031;");
       } else {
-        UvSpan.attr(
-          "style",
-          "color: #435A39;"
-        );
+        UvSpan.attr("style", "color: #435A39;");
       }
     });
   });
@@ -161,10 +145,8 @@ function get5Day(cityName) {
           currentDay.weather[0].icon +
           "@2x.png"
       );
-      cardDiv.attr(
-        "class",
-        "col weather-cards"
-      );
+      cardDiv.attr("class", "col weather-cards rounded");
+      cardDiv.attr("data-aos", "fade-right");
       cardDiv.append(iconImg, currenTime, temp, humidity);
       $(".fiveDayCon").append(cardDiv);
     }
