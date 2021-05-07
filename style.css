@@ -2,6 +2,8 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* nav */
@@ -22,6 +24,12 @@ header h1 {
   margin-right: auto;
 }
 
+@media only screen and (max-width: 500px) {
+    header h1 {
+        width: 28rem;
+    }
+}
+
 /* search section */
 
 .search-container {
@@ -31,7 +39,14 @@ header h1 {
 
 @media only screen and (max-width: 500px) {
   .full-container {
-    width: 30rem;
+    width: 29.5rem;
+    align-items: center;
+  }
+  .search-container {
+      margin-left: 0%;
+  }
+  .weather-container {
+      margin-left: 0%;
   }
 }
 
